@@ -1,0 +1,762 @@
+﻿<!--
+//
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="initial-scale = 1.0,maximum-scale = 1.0" name="viewport">
+<title>词典</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<link rel="icon" type="image/png" href="./fav.png">
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+<style>
+/*DarkGreen:#B2DFB2 LightGreen:#EDFDED */
+/*DarkBlue:#8ac5ff LightBlue:#ECF8FF */
+/*DarkYellow:#FFBD59 LightYellow:#FFFFD9 */
+/*DarkPink:#F7DAF3 LightPink:#DD98D3 */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    border: 0 none;
+    vertical-align: baseline;
+	font-size: 100%;
+	font-family: "Segoe UI Light","Segoe UI Web Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","HelveticaNeue-Light","Helvetica Neue",Arial;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    top: 0;
+	background: #eeeeee;
+}
+#myWin {
+	display: block;
+	vertical-align: top;
+}
+div {
+	padding: 0px; 
+	margin:0px;
+	border: 0px;
+}
+table {
+	vertical-align:top; 
+	padding:0px; 
+	margin:0px; 
+}
+td {
+	vertical-align:top; 
+	padding:0px; 
+	margin:0px; 
+	border:0px solid #ff0000;
+	background-color: #eeeeee;
+}
+span {
+	text-shadow: 1px 1px 1px #DDDDDD;
+}
+span a {
+	vertical-align: middle;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+input[type="checkbox"] {
+	padding: 0px;
+}
+
+input[type="text"] {
+	margin:1px;
+	padding: 0px;
+	vertical-align: middle;
+	font-weight:bold;
+	font-size: 110%;
+	font-family: "Segoe UI Light","Segoe UI Web Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","HelveticaNeue-Light","Helvetica Neue",Arial;
+}
+textarea {
+	padding: 2px;
+	font-size: 90%;
+	font-family: "Segoe UI Light","Segoe UI Web Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","HelveticaNeue-Light","Helvetica Neue",Arial;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 3px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+        border-top-color: rgba(82, 168, 236, 0.8);
+        border-right-color-value: rgba(82, 168, 236, 0.8);
+        border-bottom-color: rgba(82, 168, 236, 0.8);
+        border-left-color-value: rgba(82, 168, 236, 0.8);
+        border-left-color-ltr-source: physical;
+        border-left-color-rtl-source: physical;
+        border-right-color-ltr-source: physical;
+        border-right-color-rtl-source: physical;
+    outline: 0px none;
+        outline-width: 0px;
+        outline-style: none;
+        outline-color: -moz-use-text-color;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+}
+a:link {text-decoration:none;}    /* unvisited link */
+a:visited {text-decoration:none;} /* visited link */
+a:hover {text-decoration:none;color:#0000ff;}   /* mouse over link */
+a:active {text-decoration:underline;}  /* selected link */
+
+#accordion-resizer {
+	padding: 2px;
+	width: 250px;
+	height: 600px;
+	background-color: #eeeeee;
+	border: 0px;
+}
+
+li img {
+	opacity:0.3;
+	filter:alpha(opacity=40); /* For IE8 and earlier */
+	vertical-align: middle;
+}
+li img:hover {
+	opacity:1.0;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+	vertical-align: middle;
+	text-decoration:none;
+}
+li a {
+	width: 150px;
+	display: inline-block;
+	white-space: nowrap;
+}
+h3 span {
+	display: inline-block;
+	width: 150px;
+}
+li {
+	float:left;
+	height: 22px;
+	display:inline-block;
+	list-style-type:none;
+	white-space: nowrap;
+	overflow:hidden;
+	position:relative;
+	margin:0px 0px 0px -40px;
+	vertical-align: middle;
+}
+li:hover, span a:hover {
+	width: 180px;
+	color:#ff0000; background-color: #FFFFD9; 
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	border:1px solid #FFBD59;
+	text-decoration:none;
+	}   /* mouse over link */
+
+#template {
+	padding: 0px;
+	margin: 2px;
+}
+#myTop {
+background: rgb(246,248,249); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y2ZjhmOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2U1ZWJlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iI2Q3ZGVlMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNWY3ZjkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(top,  rgba(246,248,249,1) 0%, rgba(229,235,238,1) 50%, rgba(215,222,227,1) 51%, rgba(245,247,249,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,248,249,1)), color-stop(50%,rgba(229,235,238,1)), color-stop(51%,rgba(215,222,227,1)), color-stop(100%,rgba(245,247,249,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(246,248,249,1) 0%,rgba(229,235,238,1) 50%,rgba(215,222,227,1) 51%,rgba(245,247,249,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 ); /* IE6-8 */
+outline: 1px groove #cccccc;
+
+vertical-align:top; 
+padding:0px; 
+margin:0px; 
+border:1px solid #cccccc;
+}
+.optionicon {
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAI0lEQVR42mNgGAUkgYaGhv8gTHWDYHxceDSMRsNohIXRoAAAgjJZ3e3dztwAAAAASUVORK5CYII=") repeat scroll 0 0 #ffffff;
+}
+</style>
+
+<script type="text/javascript">
+//background: url("http://goo.gl/qmc7HH") repeat scroll 0 0 #EEEEEE;
+
+$(document).ready(function(){
+//START
+//http://hk.bing.com/search?q=site%3Acanton8.com+lynda.com
+//https://www.google.com.hk/search?hl=zh&q=site:tvboxnow.com+lynda.com
+//http://search.yahoo.com/search?fr=yscpb&vs=www.tvboxnow.com&p=lynda.com
+//http://www.baidu.com/s?wd=site%3Apan.baidu.com+lynda.com
+//8cyber.com tvboxnow.com canton8 uwants.com
+//http://www.dlkoo.com/down/index.asp?act=search&keyword=猪猪字幕组
+//http://www.so.com/s?ie=utf-8&src=360sou_home_hao&ms=s95744&q=site%3Ayunpan.cn+torrent
+
+
+// * Click Events -------------------------------------------------------------------------------------- *
+
+$(function() {
+	$( "#accordion" ).accordion({
+	heightStyle: "fill"
+	});
+});
+$(function() {
+	$( "#accordion-resizer" ).resizable({
+	minHeight: 100,
+	minWidth: 200,
+	resize: function() {
+	$( "#accordion" ).accordion( "refresh" );
+	}
+	});
+});
+
+$('input[type=text]').mouseup(function() {
+	$(this).select();
+});
+
+//getQueryString
+var defaultvars = {w: "Great+"};
+$.extend({
+getUrlVars: function(){
+  var vars = [], hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for(var i = 0; i < hashes.length; i++) {
+	hash = hashes[i].split('=');
+	vars.push(hash[0]);
+	vars[hash[0]] = hash[1];
+  }
+  if (hash.length > 1) {return vars} else {return defaultvars;} 
+},
+getUrlVar: function(name){
+  return $.getUrlVars()[name];
+}
+});
+
+var w = $.getUrlVar('w');
+$('#wd').val(decodeURI(w));
+
+//var sp = $.getUrlVar('sp');
+//if (sp!=null) {
+	//for IE ONLY!
+	//alert($.browser.msie);
+    //if ($.browser.msie) {
+	//	window.clipboardData.setData('Text','william.choo@planetone-asia.com');
+	//} else { 
+	//	var inputvalue=prompt("SharePoint","william.choo@planetone-asia.com");
+	//	if (inputvalue!=null)  {return false} else {return false}
+	//}
+//}
+
+
+//document.title=document.title + ' ' + ($(window).width()+'x'+$(window).height());
+
+
+//Set Windows Size
+var nTop = 30;
+var nFooter = 20;
+var nLeft = 255;
+var nRight = 0;
+
+$('#accordion-resizer').height($(window).height()-50);
+$('#wd' ).css('width', nLeft-2);
+
+$("#myFrame" ).css( "width", $(window).width());
+$("#myFrame" ).css( "height", $(window).height());
+$("#myTop" ).css( "width", $(window).width());
+$("#myTop" ).css( "height", nTop);
+$("#myLeft" ).css( "width", nLeft);
+$("#myLeft" ).css( "height", $(window).height()-nTop-nFooter);
+$("#myCenter" ).css( "width", $(window).width()-nLeft-nRight);
+$("#myCenter" ).css( "height", $(window).height()-nTop-nFooter);
+$("#myRight" ).css( "width", nRight-4);
+$("#myRight" ).css( "height", $(window).height()-nTop-nFooter);
+$("#myFooter" ).css( "width", $(window).width());
+$("#myFooter" ).css( "height", nFooter);
+$("#iframe" ).css( "width", $(window).width()-nLeft-nRight);
+$("#iframe" ).css( "height", $(window).height()-nTop-nFooter);
+$("#iframe" ).css( "padding", 2);
+
+
+//END
+})
+
+function getKeyword() {
+	var str = $('#wd').val().replace('#','');
+	var kw = encodeURI(str);
+	//$("input[type='checkbox']:checked").each(
+	//    function() {
+	//       kw = kw + '+' + $(this).val();
+	//    }
+	//);
+	//alert(kw);
+	return kw;
+}
+
+function goYahoo(obj) {
+	//alert(obj.id);
+obj.target='_self';
+	var kw = getKeyword();
+	if (obj.target=='_self')
+	{
+		// window.open('http://search.yahoo.com/search?fr=yscpb&vs='+obj.id+'&p='+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		if (obj.id=='百度云网盘')
+		{
+		window.open('http://search.yahoo.com/search?fr=yscpb&p=百度云网盘 '+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		} else {
+		window.open('http://search.yahoo.com/search?fr=yscpb&p=迅雷下载 '+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		}
+	} else {
+		if (obj.id=='百度云网盘')
+		{
+		$("#iframe").attr('src', 'http://search.yahoo.com/search?fr=yscpb&p=百度云网盘 '+kw);
+		} else {
+		$("#iframe").attr('src', 'http://search.yahoo.com/search?fr=yscpb&p=迅雷下载 '+kw);
+		}
+	}
+	return false;
+}
+function goGoogle(obj) {
+	var kw = getKeyword();
+//alert(obj.target);
+obj.target='_self';
+	if (obj.target=='_self')
+	{
+		// window.open('https://www.google.com.hk/#safe=strict&q=site:'+obj.id+'+'+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		if (obj.id=='百度云网盘')
+		{
+		window.open('https://www.google.com.hk/#safe=strict&q=百度云网盘 ' + kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		} else {
+		window.open('https://www.google.com.hk/#safe=strict&q=迅雷下载 ' + kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		}
+		
+	} else {
+		if (obj.id=='百度云网盘')
+		{
+		$("#iframe").attr('src', 'http://www.google.com/custom?safe=images&btnG=搜尋&q=百度云网盘 '+kw);
+		} else {
+		$("#iframe").attr('src', 'http://www.google.com/custom?safe=images&btnG=搜尋&q=迅雷下载 '+kw);
+		}
+	}
+}
+function goBaidu(obj) {
+	var kw = getKeyword();
+	//alert(obj.id);
+	if (obj.target=='_self')
+	{
+		//window.open('http://www.baidu.com/s?wd=site%3A'+obj.id+'+'+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		if (obj.id=='百度云网盘')
+		{
+		window.open('http://www.baidu.com/s?wd=百度云网盘 ' + kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		} else {
+		window.open('http://www.baidu.com/s?wd=迅雷下载 ' + kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		}
+	} else {
+		if (obj.id=='百度云网盘')
+		{
+		$("#iframe").attr('src', 'http://www.baidu.com/s?wd=百度云网盘 '+kw);
+		} else {
+		$("#iframe").attr('src', 'http://www.baidu.com/s?wd=迅雷下载 '+kw);
+		}
+	}
+}
+function goBing(obj) {
+	// https://www.bing.com/search?q=
+	var kw = getKeyword();
+	if (obj.target=='_self')
+	{
+		if (obj.id=='百度云网盘')
+		{
+		window.open('https://www.bing.com/search?q=百度云网盘 '+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		} else {
+		window.open('https://www.bing.com/search?q=迅雷下载 '+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+		}
+	} else {
+		if (obj.id=='百度云网盘')
+		{
+		$("#iframe").attr('src', 'https://www.bing.com/search?q=百度云网盘 '+kw);
+		} else {
+		$("#iframe").attr('src', 'https://www.bing.com/search?q=迅雷下载 '+kw);
+		}
+	}
+}
+//www.so.com/s?ie=utf-8&src=360sou_home_hao&ms=s95744&q=site%3Ayunpan.cn+torrent
+function go360(obj) {
+	var kw = getKeyword();
+	if (obj.target=='_self')
+	{
+		window.open('http://www.so.com/s?ie=utf-8&src=360sou_home_hao&q=site%3A'+obj.id+'+'+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+	} else {
+		$("#iframe").attr('src', 'http://www.so.com/s?ie=utf-8&src=360sou_home_hao&q=site%3A'+obj.id+'+'+kw);
+	}
+}
+
+function goSoso(obj) {
+	var kw = getKeyword();
+	if (obj.target=='_self')
+	{
+		window.open('http://www.soso.com/q?pid=s.idx&cid=s.idx.se&w=site%3A'+obj.id+'+'+kw,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+	} else {
+		$("#iframe").attr('src', 'http://www.soso.com/q?pid=s.idx&cid=s.idx.se&w=site%3A'+obj.id+'+'+kw);
+	}
+}
+
+function go(obj) {
+	var kw = getKeyword();
+	var url = 'http://' + obj.title + kw ;
+	//alert(url);
+	if (obj.target=='_self')
+	{
+		window.open(url,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+	} else {
+		$("#iframe").attr('src', url);
+	}
+}
+
+function goDict(obj) {
+	var url ;
+	var kw = getKeyword();
+//	var urlhead = new Array(20);
+//	urlhead[0] = "http://dict.baidu.com/s?wd="; //百度词典
+//	urlhead[1] = "http://translate.google.com/m/translate?hl=en#en|zh-CN|"; //Google(M)
+//	urlhead[2] = "http://chinesedictionary.mobi/?handler=QueryWorddict&mwdqb="; //ChineseDict
+//	urlhead[3] = "http://www.microsofttranslator.com/?from=en&to=zh-CHS&text="; //MSN
+//	urlhead[4] = "http://fanyi.baidu.com/#auto2auto|"; //Baidu
+//	urlhead[5] = "http://cdict.net/?q="; //英漢字典
+//	urlhead[6] = "http://dictionary.sina.com.hk/p/word/"; //
+//	urlhead[7] = "http://cn.bing.com/dict/search?qs=n&form=CM&pq=great&sc=0-0&sp=-1&sk=&q="; //Bing
+//	urlhead[8] = "http://translate.google.com/?hl=en#en|zh-CN|"; //google china
+//	urlhead[9] = "http://translate.google.com/?hl=en#en|zh-TW|"; //google hk
+//	urlhead[10] = "http://hk.dictionary.yahoo.com/dictionary?p="; //yahoo hk
+//	urlhead[11] = "http://dict.dreye.com/ews/dict.php?hidden_codepage=01&ua=dc_cont&project=nd&w="; //dreye
+//	urlhead[12] = "http://m.nciku.com/zh/entry/?query="; //nciku
+//	urlhead[13] = "http://dict.cn/";//dict
+//	urlhead[14] = "http://m.yeshj.com/d/w/"; //沪江
+//	urlhead[15] = "http://www.iciba.com/"; //金山词霸
+//	urlhead[16] = "http://dict.youdao.com/w/";//有道词典
+// http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=
+// https://translate.yandex.com/?lang=en-zh&text=happy
+
+	switch (obj.id)
+	{
+	case 'd0':
+	  url = "http://dict.baidu.com/s?wd=" + kw ;//百度词典
+	  break;
+	case 'd1':
+	  url = "http://translate.google.com/m/translate?hl=en#en|zh-CN|" + kw ;//Google(M)
+	  break;
+	case 'd2':
+	  url = "http://chinesedictionary.mobi/?handler=QueryWorddict&mwdqb=" + kw ;//ChineseDict
+	  break;
+	case 'd3':
+	  url = "http://www.microsofttranslator.com/?from=en&to=zh-CHS&text=" + kw ;//MSN
+	  break;
+	case 'd4':
+	  url = "http://fanyi.baidu.com/#auto2auto|" + kw ;//Baidu
+	  break;
+	case 'd5':
+	  url = "http://cdict.net/?q=" + kw ;//英漢字典
+	  break;
+	case 'd6':
+	  url = "http://dictionary.sina.com.hk/p/word/" + kw ;//Sina
+	  break;
+	case 'd7':
+	  url = "http://cn.bing.com/dict/search?qs=n&form=CM&pq=great&sc=0-0&sp=-1&sk=&q=" + kw ;//Bing
+	  break;
+	case 'd8':
+	  url = "http://translate.google.com/?hl=en#en|zh-CN|" + kw ;//google china 谷歌
+	  break;
+	case 'd9':
+	  url = "http://translate.google.com/?hl=en#en|zh-TW|" + kw ;//google hk
+	  break;
+	case 'd10':
+	  url = "http://hk.dictionary.search.yahoo.com/search?p=" + kw ;//yahoo hk http://hk.dictionary.yahoo.com/dictionary?p=
+	  break;
+	case 'd11':
+	  url = "http://dict.dreye.com/ews/dict.php?hidden_codepage=01&ua=dc_cont&project=nd&w=" + kw ;//dreye
+	  break;
+	case 'd12':
+	  url = "http://m.nciku.com/zh/entry/?query=" + kw ;//nciku
+	  break;
+	case 'd13':
+	  url = "http://dict.cn/" + kw ;//dict
+	  break;
+	case 'd14':
+	  url = "http://m.yeshj.com/d/w/" + kw ;//沪江
+	  break;
+	case 'd15':
+	  url = "http://www.iciba.com/" + kw ;//金山词霸
+	  break;
+	case 'd16':
+	  url =  "http://www.youdao.com/w/eng/" + kw ;//有道词典
+	  break;
+	case 'd17':
+	  url = "http://tw.dictionary.search.yahoo.com/search?p=" + kw ;//yahoo tw http://tw.dictionary.yahoo.com/dictionary?p=
+	  break;
+	case 'd18':
+	  url =  "http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/?" + kw;//粵語審音配詞
+	  //"http://humanum.arts.cuhk.edu.hk/Lexis/lexi-can/search.php?q=" + kw ;//粵語審音配詞
+	  //alert(url);
+	  break;
+	case 'd19':
+	  url =  "?" + kw ;//?
+	  break;
+	} 
+	//alert(url);
+	if (obj.target=='_self')
+	{
+		window.open(url,'_blank','location=yes,toolbar=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=800,height=570');
+	} else {
+		$("#iframe").attr('src', url);
+	}
+}
+
+//Default
+function goLoad() {
+	var kw = getKeyword();
+	var url ="http://www.youdao.com/w/eng/" + kw ;//有道词典
+	//"http://www.iciba.com/" + kw ;//金山词霸
+	//"http://www.youdao.com/w/eng/" + kw ;//有道词典
+	//"http://cn.bing.com/dict/search?qs=n&form=CM&pq=great&sc=0-0&sp=-1&sk=&q=" + kw ;//BING
+	$("#iframe").attr('src', url);
+}
+
+//    爱词霸
+//    有道词典
+//    百度词典
+//    必应词典
+//    海词词典
+//    沪江小D
+//    剑桥词典
+//    n词酷
+//    译典通
+//    新华词典
+//    汉语词典
+
+
+function myPrompt(){
+	var inputvalue=prompt("SharePoint","william.choo@planetone-asia.com");
+	if (inputvalue!=null)  {return false} else {return false}
+}
+
+</script>
+
+</head>
+<body id="myBody" onload='goLoad()'>
+
+<div id="myFrame" style="width: 640px; height: 400px; border: 0px solid orange; display: block;"> 
+<div id="myTop" style="width: 640px; height: 20px; border: 0px solid blue; display: block;vertical-align: top;">
+<div id='myWord'>
+<input id="wd" value="粵語" type="text"  onkeydown="if (event.keyCode==13) {goLoad();}">
+<span>
+<a href="#" id="d0" onclick='goDict(this)'>百度</a>&nbsp;|
+<a href="#" id="d4" onclick='goDict(this)'>百度翻译</a>&nbsp;|
+<a href="#" id="d16" onclick='goDict(this)'>有道词典</a>&nbsp;|
+<a href="#" id="d10" onclick='goDict(this)'>Yahoo HK</a>&nbsp;|
+<a href="#" id="d17" onclick='goDict(this)'>Yahoo TW</a>&nbsp;|
+<a href="#" id="d18" onclick='goDict(this)'>粵語審音配詞</a>&nbsp;|
+<a href="#" id="d11" onclick='goDict(this)'>Dr.eye</a>&nbsp;|
+<a href="#" id="d15" onclick='goDict(this)'>金山词霸</a>&nbsp;|
+<a href="#" id="d7" onclick='goDict(this)'>Bing</a>&nbsp;|
+<a href="#" id="d3" onclick='goDict(this)'>MSN</a>&nbsp;|
+<a href="#" id="d5" onclick='goDict(this)'>英漢字典</a>&nbsp;|
+<a href="#" id="d6" onclick='goDict(this)'>Sina</a>&nbsp;|
+<a href="#" id="d12" onclick='goDict(this)'>nciku</a>&nbsp;|
+<a href="#" id="d2" onclick='goDict(this)'>Chinese</a>&nbsp;|
+<a href="#" id="d14" onclick='goDict(this)'>沪江</a>&nbsp;|
+<a href="#" id="d1" onclick='goDict(this)'>Google(M)</a>&nbsp;|
+<a href="#" id="d8" onclick='goDict(this)' target="_self">谷歌</a>&nbsp;|
+<a href="#" id="d9" onclick='goDict(this)' target="_self">Google HK</a>&nbsp;|
+</span>
+</div>
+</div> <!-- myTop -->
+
+<div id="myLeft" style="width: 200px; height: 350px; border: 0px solid red; float: left;vertical-align: top;">
+<div id="accordion-resizer" class="ui-widget-content" >
+
+<div id="accordion">
+<h3><span>字典(Dictionary)</span>&nbsp;<img src='http://goo.gl/NxXza8'></h3>
+<div id="d1">
+	<p></p>
+	<ul>
+	<li><a href="#" id="d0" onclick='goDict(this)'>百度</a>&nbsp;<a href="#" id="d0" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d4" onclick='goDict(this)'>百度翻译</a>&nbsp;<a href="#" id="d4" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d10" onclick='goDict(this)' target="_self">Yahoo HK</a>&nbsp;<a href="#" id="d10" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d17" onclick='goDict(this)' target="_self">Yahoo TW</a>&nbsp;<a href="#" id="d17" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d18" onclick='goDict(this)'>粵語審音配詞</a>&nbsp;<a href="#" id="d18" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d11" onclick='goDict(this)'>Dr.eye</a>&nbsp;<a href="#" id="d11" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d15" onclick='goDict(this)'>金山词霸</a>&nbsp;<a href="#" id="d15" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d16" onclick='goDict(this)'>有道词典</a>&nbsp;<a href="#" id="d16" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d7" onclick='goDict(this)'>Bing</a>&nbsp;<a href="#" id="d7" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d3" onclick='goDict(this)'>MSN</a>&nbsp;<a href="#" id="d3" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d5" onclick='goDict(this)'>英漢字典</a>&nbsp;<a href="#" id="d5" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d6" onclick='goDict(this)'>Sina</a>&nbsp;<a href="#" id="d6" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d12" onclick='goDict(this)'>nciku</a>&nbsp;<a href="#" id="d12" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d13" onclick='goDict(this)'>Dict.cn</a>&nbsp;<a href="#" id="d13" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d2" onclick='goDict(this)'>Chinese</a>&nbsp;<a href="#" id="d2" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d14" onclick='goDict(this)'>沪江</a>&nbsp;<a href="#" id="d14" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d1" onclick='goDict(this)'>Google(M)</a>&nbsp;<a href="#" id="d1" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d8" onclick='goDict(this)' target="_self">谷歌</a>&nbsp;<a href="#" id="d8" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="d9" onclick='goDict(this)' target="_self">Google HK</a>&nbsp;<a href="#" id="d9" target="_self" onclick='goDict(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goGoogle(this)'>  </a>&nbsp;</li>
+
+	<li><a href="#" id="百度云网盘" onclick='goGoogle(this)'>百度云网盘 Google</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goGoogle(this)'>迅雷下载 Google</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goBaidu(this)'>百度云网盘 Baidu</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBaidu(this)'><img src='http://goo.gl/npJUQ7' width="16" height="16"></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goBaidu(this)'>迅雷下载 Baidu</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goBaidu(this)'><img src='http://goo.gl/npJUQ7' width="16" height="16"></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goBing(this)'>百度云网盘 Bing</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBing(this)'><img src='http://icons.iconarchive.com/icons/limav/flat-gradient-social/16/Bing-icon.png'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goBing(this)'>迅雷下载 Bing</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBing(this)'><img src='http://icons.iconarchive.com/icons/limav/flat-gradient-social/16/Bing-icon.png'></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goYahoo(this)'>百度云网盘 Yahoo</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goYahoo(this)'>迅雷下载 Yahoo</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+
+
+	</ul>
+</div>
+
+
+<h3><span>网盘(Google)</span>&nbsp;<img src='http://goo.gl/IzAYuT'></h3>
+<div id="d2">
+	<p></p>
+	<ul>
+	<li><a href="#" id="百度云网盘" onclick='goBaidu(this)'>百度云网盘 Baidu</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBaidu(this)'><img src='http://goo.gl/npJUQ7' width="16" height="16"></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goGoogle(this)'>百度云网盘 Google</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goYahoo(this)'>百度云网盘 Yahoo</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="百度云网盘" onclick='goBing(this)'>百度云网盘 Bing</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBing(this)'><img src='http://icons.iconarchive.com/icons/limav/flat-gradient-social/16/Bing-icon.png'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goBaidu(this)'>迅雷下载 Baidu</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goBaidu(this)'><img src='http://goo.gl/npJUQ7' width="16" height="16"></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goGoogle(this)'>迅雷下载 Google</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goYahoo(this)'>迅雷下载 Yahoo</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="迅雷下载" onclick='goBing(this)'>迅雷下载 Bing</a>&nbsp;<a href="#" id="pan.baidu.com" onclick='goBing(this)'><img src='http://icons.iconarchive.com/icons/limav/flat-gradient-social/16/Bing-icon.png'></a></li>
+
+	<li><a href="#" id="qun.yunpan.360.cn" onclick='goGoogle(this)'>qun.yunpan.360.cn</a>&nbsp;<a href="#" id="qun.yunpan.360.cn" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="yunpan.cn" onclick='goGoogle(this)'>yunpan.360.cn</a>&nbsp;<a href="#" id="yunpan.cn" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="400gb.com" onclick='goGoogle(this)'>400gb.com</a>&nbsp;<a href="#" id="400gb.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="vdisk.weibo.com" onclick='goGoogle(this)'>vdisk.weibo.com</a>&nbsp;<a href="#" id="vdisk.weibo.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="dl.vmall.com" onclick='goGoogle(this)'>dl.vmall.com</a>&nbsp;<a href="#" id="dl.vmall.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="q.115.com" onclick='goGoogle(this)'>q.115.com</a>&nbsp;<a href="#" id="q.115.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="tvboxnow.com" onclick='goGoogle(this)'>tvboxnow.com</a>&nbsp;<a href="#" id="tvboxnow.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="canton8.com" onclick='goGoogle(this)'>canton8.com</a>&nbsp;<a href="#" id="canton8.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="uwants.com" onclick='goGoogle(this)'>uwants.com</a>&nbsp;<a href="#" id="uwants.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="8cyber.com" onclick='goGoogle(this)'>8cyber.com</a>&nbsp;<a href="#" id="8cyber.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="dreamxt.net" onclick='goGoogle(this)'>dreamxt.net</a>&nbsp;<a href="#" id="dreamxt.net" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="hdzone.org" onclick='goGoogle(this)'>hdzone.org</a>&nbsp;<a href="#" id="hdzone.org" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="tv-release.net" onclick='goGoogle(this)'>tv-release.net</a>&nbsp;<a href="#" id="tv-release.net" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="180upload.com" onclick='goGoogle(this)'>180upload.com</a>&nbsp;<a href="#" id="180upload.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="yunpan.cn" onclick='go360(this)'>so.com</a>&nbsp;<a href="#" id="yunpan.cn" target="_self" onclick='go360(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	
+	</ul>
+</div>
+
+<h3><span>网盘(Yahoo)</span>&nbsp;<img src='http://goo.gl/E40IQ2'></h3>
+<div id="d1">
+	<p></p>
+	<ul>
+	<li><a href="#" id="pan.baidu.com" onclick='goBaidu(this)'>pan.baidu.com</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goBaidu(this)'><img src='http://goo.gl/npJUQ7'></a></li>
+	<li><a href="#" id="pan.baidu.com" target="_self" onclick='goGoogle(this)'>pan.baidu.com</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goGoogle(this)'><img src='http://goo.gl/IzAYuT'></a></li>
+	<li><a href="#" id="pan.baidu.com" target="_self" onclick='goYahoo(this)'>pan.baidu.com</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="pan.baidu.com" onclick='goSoso(this)'>pan.baidu.com</a>&nbsp;<a href="#" id="pan.baidu.com" target="_self" onclick='goSoso(this)'><img src='http://goo.gl/JIWT2D'></a></li>
+	<li><a href="#" id="qun.yunpan.360.cn" onclick='goYahoo(this)'>qun.yunpan.360.cn</a>&nbsp;<a href="#" id="qun.yunpan.360.cn" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="yunpan.cn" onclick='goYahoo(this)'>yunpan.360.cn</a>&nbsp;<a href="#" id="yunpan.cn" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="400gb.com" onclick='goYahoo(this)'>400gb.com</a>&nbsp;<a href="#" id="400gb.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="vdisk.weibo.com" onclick='goYahoo(this)'>vdisk.weibo.com</a>&nbsp;<a href="#" id="vdisk.weibo.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="dl.vmall.com" onclick='goYahoo(this)'>dl.vmall.com</a>&nbsp;<a href="#" id="dl.vmall.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="q.115.com" onclick='goYahoo(this)'>q.115.com</a>&nbsp;<a href="#" id="q.115.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="tvboxnow.com" onclick='goYahoo(this)'>tvboxnow.com</a>&nbsp;<a href="#" id="tvboxnow.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="canton8.com" onclick='goYahoo(this)'>canton8.com</a>&nbsp;<a href="#" id="canton8.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="uwants.com" onclick='goYahoo(this)'>uwants.com</a>&nbsp;<a href="#" id="uwants.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="8cyber.com" onclick='goYahoo(this)'>8cyber.com</a>&nbsp;<a href="#" id="8cyber.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="dreamxt.net" onclick='goYahoo(this)'>dreamxt.net</a>&nbsp;<a href="#" id="dreamxt.net" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="hdzone.org" onclick='goYahoo(this)'>hdzone.org</a>&nbsp;<a href="#" id="hdzone.org" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="tv-release.net" onclick='goYahoo(this)'>tv-release.net</a>&nbsp;<a href="#" id="tv-release.net" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="180upload.com" onclick='goYahoo(this)'>180upload.com</a>&nbsp;<a href="#" id="180upload.com" target="_self" onclick='goYahoo(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	<li><a href="#" id="yunpan.cn" onclick='go360(this)'>so.com</a>&nbsp;<a href="#" id="yunpan.cn" target="_self" onclick='go360(this)'><img src='http://goo.gl/E40IQ2'></a></li>
+	
+	</ul>
+</div>
+<h3><span>网盘(Direct)</span>&nbsp;<img src='http://goo.gl/NxXza8'></h3>
+<div id="d5">
+	<ul>
+	<li><a href="#" id="w00" title='tv-release.net/?cat=&s=' onclick='go(this)'>tv-release.net</a>&nbsp;<a href="#" id="ww00" title='tv-release.net/?cat=&s=' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w01" title='www.baidu10.net/?q=' onclick='go(this)'>baidu10.net</a>&nbsp;<a href="#" id='ww01' title="www.baidu10.net/?q=" target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w02" title="www.soupan.info/search.php?q=" onclick='go(this)'>soupan.info</a>&nbsp;<a href="#" id='ww02' title="www.soupan.info/search.php?q=" target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w03" title='www.canton8.com/forum/index.php?q=' onclick='go(this)'>canton8.com</a>&nbsp;<a href="#" id="ww03" title='www.canton8.com/forum/index.php?q='  target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w04" title='www.uwants.com/index.php?q' onclick='go(this)'>uwants.com</a>&nbsp;<a href="#" id="ww04" title='www.uwants.com/index.php?q' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w05" title='www.tvboxnow.com/index.php?q' onclick='go(this)'>tvboxnow.com</a>&nbsp;<a href="#" id="ww05" title='www.tvboxnow.com/index.php?q' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w06" title='mail.8cyber.com/forum.php?q' onclick='go(this)'>8cyber.com</a>&nbsp;<a href="#" id="ww06" title='mail.8cyber.com/forum.php?q' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w07" title='www.dlkoo.com/down/index.asp?act=search&keyword=' onclick='go(this)'>dlkoo.com</a>&nbsp;<a href="#" id="ww07" title='www.dlkoo.com/down/index.asp?act=search&keyword=' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w08" title='donghua.dmzj.com/search.html?s=' onclick='go(this)'>dmzj.com</a>&nbsp;<a href="#" id="ww08" title='donghua.dmzj.com/search.html?s=' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w09" title='www.dotbt-plus.com/search.php?mod=forum&q=' onclick='go(this)'>dotbt-plus.com</a>&nbsp;<a href="#" id="ww09" title='www.dotbt-plus.com/search.php?mod=forum&q=' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	<li><a href="#" id="w10" title='so.kk98.com/vod-search-kw-' onclick='go(this)'>kk98.com</a>&nbsp;<a href="#" id="ww10" title='so.kk98.com/vod-search-kw-' target="_self" onclick='go(this)'><img src='http://goo.gl/NxXza8'></a></li>
+	</ul>
+	<p>
+<div id='template'>
+迅雷下载<br>
+百度云网盘<br>
+种子 精選台 全集 紀錄片 电影 粤语版 动漫 英语版 中字 电视剧 儿童香港廣告 歌曲 健康操 软件开发教程 少儿 主题曲 
+高清 注册机 破解 注册码 游戏电子书籍 教育绿色下载 教学编程开发 故事在线阅读 教程 </div>
+	</p>
+
+</div>
+
+</div> <!-- accordion -->
+</div> <!-- accordion-resizer -->
+</div> <!-- myLeft -->
+
+<div id="myCenter" style="width: 300px; height: 350px; border: 0px solid green; float: left; vertical-align: top;">
+<iframe name="content" id="iframe" frameborder="0" src="about:blank">Loading...</iframe>
+</div> <!-- myCenter -->
+
+<div id="myRight" style="width: 130px; height: 350px; border: 0px solid blue; float: left;display: block;vertical-align: top;">
+	
+</div> <!-- myRight -->
+
+<div id="myFooter" style="width: 640px; height: 20px; border: 0px solid purple; float: left; vertical-align: bottom; text-align: center; font:12px 'Times New Roman';">
+Copyright &copy; William.getmyip.com
+</div>  <!-- myFooter -->
+
+</div>   <!-- myFrame -->
+
+</body>
+</html>
+<!--
+
+[Mouse Events]
+.click()
+.dblclick()
+.focusout()
+.hover()
+.mousedown()
+.mouseenter()
+.mouseleave()
+.mousemove()
+.mouseout()
+.mouseover()
+.mouseup()
+.toggle()
+
+[Keyboard Events]
+.focusout()
+.keydown()
+.keypress()
+.keyup()
+
+[Forn Events]
+.blur()
+.change()
+.focus()
+.focusin()
+.select()
+.submit()
+-->
